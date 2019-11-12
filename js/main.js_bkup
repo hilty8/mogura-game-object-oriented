@@ -1,0 +1,94 @@
+// TODO: のちに enum化
+const STATUS_HIDE = 0;
+const STATUS_SHOW = 1;
+const STATUS_PRESS = 2;
+
+
+// データ構造を考える
+// モンスター
+// >> type      => 0: モグラA, 1: モグラB, 2: ゴブリン
+// >> >> show_src  => 
+// >> >> press_src => 
+// ステータス => 0: hide, 1: show, 2: press
+
+// データ構造の取得場面を考える
+// まず ENUM.getByName('this.type')
+// --> type : 
+
+// 今後の改修
+// 顔を出すたびにMogura ( Monster ) オブジェクトを生成する
+// Mogura オブジェクト生成時、Monster タイプを生成時に
+
+
+// 全てのもぐらに、クリックイベントを登録する
+const moguras = document.querySelectorAll(".mogura");
+setInterval(deruMogura, 1000);
+
+// 0:hide, 1:show, 2:press
+let gameController = new GameController();
+
+function GameController(){
+
+  this.allMogura = [];
+  this.stage = [0, 0 ,0, 0 ,0 ,0, 0, 0, 0];
+  for (let index = 0; index < moguras.length; index++) {
+    this.allMogura.push(new moguraObj(moguras[index]));
+  }
+
+  this.gameStart = function(){
+     // ステージを生成する
+  }
+
+  this.searchActiveMogura = function(){
+    // for でループして、statusが1のもぐらのリストを返す
+  }
+}
+
+// モグラ constructor
+function moguraObj(image){
+
+  // 画像をオブジェクト内に所持しておく
+  // => このとき enum から取得する
+  const hitImg = "";
+  const itaiMogura = "images/モグ1.png";
+  const normalMogura = "images/モグ2.png";
+
+  this.moguraType = 2 // 0:もぐら 1:グラサン 2:ゴブリン
+
+  this.status = 0; // 0:hide, 1:show, 2:press
+  this.autoHide = "";
+
+  image.onclick = function () {
+    if(this.moguraType == 1){
+      image.src = itaiMogura;
+    }
+    thos.status = 2;
+    setTimeout(kakureruMogura, 700, image);
+  }
+
+  image.deru = function(){
+    image.src = normalMogura;
+    // しばらくしたら隠れる
+    setTimeout((mogura) => {
+      if (this.status != 2) {
+        // statusが2の時の処理
+      }
+    }, 600, mogura);
+  }
+
+  image.kakureru = function(){
+
+  }
+
+  iamge.setImage = function(imageUrl){
+    iamge.src = imageUrl;
+  }
+
+  // もぐらが叩かれる
+  function hitMogura() {
+    var mogura = event.target;
+    mogura.src = itaiMogura;
+    mogura.moguraStatus = 2;
+    setTimeout(kakureruMogura, 700, mogura);
+  }
+}

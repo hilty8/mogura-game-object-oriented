@@ -4,80 +4,19 @@
 <head>
 	<meta charset="utf-8">
 	<title>もぐらたたきゲーム</title>
-	<style media="screen">
-		#game {
-			cursor: url(./images/hummer.cur) 40 40, auto;
-		}
-
-		h1 {
-			text-align: center;
-			margin: auto 0px;
-			background: rgba(140, 248, 155, 0.7);
-		}
-
-		h1>img {
-			width: 320px;
-		}
-
-		body {
-			margin: 0px auto;
-			background-image: url(./images/草-noitem.png);
-			background-repeat: no-repeat;
-			background-attachment: fixed;
-			background-position: center;
-			background-size: cover;
-		}
-
-		.container {
-			width: 520px;
-			height: 160px;
-			margin: 20px auto;
-			text-align: center;
-			display: -webkit-flex;
-			display: -moz-flex;
-			display: -ms-flex;
-			display: -o-flex;
-			display: flex;
-		}
-
-		.container img {
-			margin: 20px;
-			width: 140px;
-		}
-
-		.wrapper {
-			margin: 0px auto;
-			display: flex;
-		}
-
-		img {
-			width: 213px;
-		}
-
-		.hit-mogura {
-			cursor: url(./images/hummer2.cur) 20 20, auto;
-		}
-
-		.uwagaki {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-
-		.relative {
-			position: relative;
-		}
-
-		.field {
-			margin: 40px;
-		}
-	</style>
-
+	<link rel="stylesheet" type="text/css" href="./css/styles.css" media="screen">
 </head>
 
 <body id="game">
 	<div class="field">
 		<h1><img src="images/title.png" alt=""></h1>
+
+		<!-- ゲームの得点 + 残り時間 -->
+		<div class="gameConfig">
+			<div id="gamePoint">得点 : 0</div> 
+			<div id="remainingTime">残り時間 : 30</div>
+		</div>
+		
 		<div class="container">
 			<div class="relative">
 				<img class="ana" src="images/穴.png">
@@ -121,75 +60,8 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-		//var test;
-		// 全てのもぐらに、クリックイベントを登録する
-		const moguras = document.querySelectorAll(".mogura");
-		const itaiMogura = "images/モグ1.png";
-		const normalMogura = "images/モグ2.png";
-		setInterval(deruMogura, 1000);
-
-		// 0:hide, 1:show, 2:press
-
-		let gameController = new GameController();
-
-		function GameController(){
-			let allMogura = []
-			for (let index = 0; index < moguras.length; index++) {
-		  	allMogura.push(new moguraObj(moguras[index]));
-			}
-		}
-
-		function moguraObj(image){
-			let status = 0; // 0:hide, 1:show, 2:press
-
-			image.onclick = function () {
-				image.src = itaiMogura;
-				image.moguraStatus = 2;
-				setTimeout(kakureruMogura, 700, image);
-			}
-
-			image.kakureru = function(){
-
-			}
-			iamge.setImage = function(imageUrl){
-				iamge.src = imageUrl;
-			}
-
-			// もぐらが叩かれる
-			function hitMogura() {
-				var mogura = event.target;
-				mogura.src = itaiMogura;
-				mogura.moguraStatus = 2;
-				setTimeout(kakureruMogura, 700, mogura);
-			}
-		}
-
-
-
-		// // もぐらが戻る
-		// function modoruMogura(mogura){
-		// 	mogura.src = "images/モグ2.png"; 
-		// }
-
-		// もぐらが隠れる(消える)
-		function kakureruMogura(mogura) {
-			mogura.src = "";
-		}
-
-		function deruMogura() {
-			var random = Math.floor(Math.random() * 9);
-			var mogura = moguras[random];
-			mogura.src = normalMogura;
-			// しばらくしたら隠れる
-			setTimeout((mogura) => {
-				if (mogura.moguraStatus != 2) {
-					kakureruMogura(mogura);
-				}
-			}, 600, mogura);
-		}
-	</script>
+	<script src="./js/enum.js"></script>
+	<script src="./js/main.js"></script>
 </body>
 
 </html>
